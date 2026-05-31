@@ -38,18 +38,19 @@ jobs:
         working-directory: vault
         run: flutter build apk --debug
 
-      - name: Upload to JFrog (dev)
-        env:
-          JFROG_URL: ${{ secrets.JFROG_URL }}
-          JFROG_API_KEY: ${{ secrets.JFROG_API_KEY }}
-          JFROG_REPO: ${{ secrets.JFROG_REPO }}
+      - name: Rename APK with date
         run: |
           DATE=$(date +'%Y-%m-%d')
-          FILENAME="vault-${DATE}.apk"
-          curl -f -u "$JFROG_API_KEY:" \
-            -T vault/build/app/outputs/flutter-apk/app-debug.apk \
-            "${JFROG_URL}/artifactory/${JFROG_REPO}/dev/${FILENAME}"
-          echo "✅ Uploaded: ${JFROG_URL}/artifactory/${JFROG_REPO}/dev/${FILENAME}"
+          cp vault/build/app/outputs/flutter-apk/app-debug.apk vault-${DATE}.apk
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: vault-${{ env.DATE }}.apk
+          releaseNotes: "Dev build - ${{ github.sha }}"
 
   ios:
     name: iOS IPA
@@ -90,18 +91,13 @@ jobs:
 
       - name: Build IPA
         working-directory: vault
-        run: flutter build ipa --release --no-codesign
+        run: flutter build ipa --release
 
-      - name: Upload to JFrog (dev)
-        env:
-          JFROG_URL: ${{ secrets.JFROG_URL }}
-          JFROG_API_KEY: ${{ secrets.JFROG_API_KEY }}
-          JFROG_REPO: ${{ secrets.JFROG_REPO }}
-        run: |
-          DATE=$(date +'%Y-%m-%d')
-          FILENAME="vault-${DATE}.ipa"
-          IPA_PATH=$(find vault/build/ios/ipa -name "*.ipa" | head -1)
-          curl -f -u "$JFROG_API_KEY:" \
-            -T "$IPA_PATH" \
-            "${JFROG_URL}/artifactory/${JFROG_REPO}/dev/${FILENAME}"
-          echo "✅ Uploaded: ${JFROG_URL}/artifactory/${JFROG_REPO}/dev/${FILENAME}"
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: vault/build/ios/ipa/*.ipa
+          releaseNotes: "Dev build - ${{ github.sha }}"
