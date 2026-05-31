@@ -42,15 +42,14 @@ jobs:
         run: |
           DATE=$(date +'%Y-%m-%d')
           cp vault/build/app/outputs/flutter-apk/app-debug.apk vault-${DATE}.apk
+          echo "APK_NAME=vault-${DATE}.apk" >> $GITHUB_ENV
 
-      - name: Upload to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          groups: testers
-          file: vault-${{ env.DATE }}.apk
-          releaseNotes: "Dev build - ${{ github.sha }}"
+          name: ${{ env.APK_NAME }}
+          path: ${{ env.APK_NAME }}
+          retention-days: 30
 
   ios:
     name: iOS IPA
@@ -93,11 +92,16 @@ jobs:
         working-directory: vault
         run: flutter build ipa --release
 
-      - name: Upload to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      - name: Rename IPA with date
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          IPA_SRC=$(find vault/build/ios/ipa -name "*.ipa" | head -1)
+          cp "$IPA_SRC" vault-${DATE}.ipa
+          echo "IPA_NAME=vault-${DATE}.ipa" >> $GITHUB_ENV
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
         with:
-          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          groups: testers
-          file: vault/build/ios/ipa/*.ipa
-          releaseNotes: "Dev build - ${{ github.sha }}"
+          name: ${{ env.IPA_NAME }}
+          path: ${{ env.IPA_NAME }}
+          retention-days: 30

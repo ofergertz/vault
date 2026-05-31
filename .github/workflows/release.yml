@@ -42,20 +42,20 @@ jobs:
           echo "APK_PATH=vault-${VERSION}.apk" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      - name: Upload to Firebase App Distribution (release)
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          groups: testers
-          file: ${{ env.APK_PATH }}
-          releaseNotes: "Release v${{ env.VERSION }}"
-
-      - name: Attach APK to GitHub Release
+      - name: Upload APK to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ env.APK_PATH }}
           name: "Vault v${{ env.VERSION }}"
+          files: ${{ env.APK_PATH }}
+          body: |
+            ## Vault v${{ env.VERSION }}
+
+            ### Android
+            Download `vault-${{ env.VERSION }}.apk` below and install on your Android device.
+            > Enable: Settings → Security → Install unknown apps
+
+            ### iOS
+            Download `vault-${{ env.VERSION }}.ipa` below (uploaded separately by ios job).
 
   ios:
     name: iOS Release IPA
@@ -106,17 +106,8 @@ jobs:
           echo "IPA_PATH=vault-${VERSION}.ipa" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      - name: Upload to Firebase App Distribution (release)
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          groups: testers
-          file: ${{ env.IPA_PATH }}
-          releaseNotes: "Release v${{ env.VERSION }}"
-
-      - name: Attach IPA to GitHub Release
+      - name: Upload IPA to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ env.IPA_PATH }}
           name: "Vault v${{ env.VERSION }}"
+          files: ${{ env.IPA_PATH }}
