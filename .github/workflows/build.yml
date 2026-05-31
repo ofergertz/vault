@@ -1,0 +1,53 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: stable
+          cache: true
+
+      - name: Get dependencies
+        working-directory: vault
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: vault
+        run: flutter analyze
+
+      - name: Test
+        working-directory: vault
+        run: flutter test
+
+      - name: Build APK (debug)
+        working-directory: vault
+        run: flutter build apk --debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: vault-debug-apk
+          path: vault/build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 7
