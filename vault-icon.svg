@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="220" fill="#1A1A2E"/>
+
+  <!-- Vault door outer ring -->
+  <circle cx="512" cy="512" r="340" fill="none" stroke="#4F8EF7" stroke-width="28"/>
+
+  <!-- Vault door body -->
+  <circle cx="512" cy="512" r="290" fill="#16213E"/>
+
+  <!-- Vault door inner ring -->
+  <circle cx="512" cy="512" r="260" fill="none" stroke="#4F8EF7" stroke-width="12" stroke-dasharray="40 20"/>
+
+  <!-- Handle bar horizontal -->
+  <rect x="340" y="496" width="344" height="32" rx="16" fill="#4F8EF7"/>
+
+  <!-- Handle bar vertical -->
+  <rect x="496" y="340" width="32" height="344" rx="16" fill="#4F8EF7"/>
+
+  <!-- Center circle / keyhole top -->
+  <circle cx="512" cy="512" r="52" fill="#4F8EF7"/>
+  <circle cx="512" cy="512" r="30" fill="#1A1A2E"/>
+
+  <!-- Keyhole bottom -->
+  <path d="M496 530 L480 590 L544 590 L528 530 Z" fill="#4F8EF7"/>
+
+  <!-- Bolts at 4 corners (on the ring) -->
+  <circle cx="512" cy="180" r="18" fill="#4F8EF7"/>
+  <circle cx="512" cy="844" r="18" fill="#4F8EF7"/>
+  <circle cx="180" cy="512" r="18" fill="#4F8EF7"/>
+  <circle cx="844" cy="512" r="18" fill="#4F8EF7"/>
+
+  <!-- Subtle glow effect -->
+  <circle cx="512" cy="512" r="340" fill="none" stroke="#4F8EF7" stroke-width="4" opacity="0.3"/>
+</svg>

@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-29T12:31:17.275Z",
+  "entries": {
+    "memory:memory/2026-04-10.md:1:10": {
+      "key": "memory:memory/2026-04-10.md:1:10",
+      "path": "memory/2026-04-10.md",
+      "startLine": 1,
+      "endLine": 10,
+      "source": "memory",
+      "snippet": "# 2026-04-10 ## First Session - Ofer bootstrapped the workspace - Named me **OferOpenClaw** - Profile: Senior backend engineer (~8 years), C# + Go, microservices, based in Israel (GMT+3) - Goal: Master AI tools → build agents that work for him - Currently interviewing at **LSports** for Senior Backend Engineer position - Prepared deep interview notes: system design, Kafka, Redis, K8s, C# async patterns, AI-augmented dev",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.271115134667691,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-18T13:46:39.345Z",
+      "lastRecalledAt": "2026-04-23T06:56:05.845Z",
+      "queryHashes": [
+        "dd60b0525743",
+        "99e10053b2f0",
+        "289117f76582"
+      ],
+      "recallDays": [
+        "2026-04-18",
+        "2026-04-23"
+      ],
+      "conceptTags": [
+        "ai-augmented",
+        "first",
+        "ofer",
+        "bootstrapped",
+        "the",
+        "named",
+        "oferopenclaw",
+        "profile"
+      ]
+    },
+    "memory:memory/2026-04-11.md:31:62": {
+      "key": "memory:memory/2026-04-11.md:31:62",
+      "path": "memory/2026-04-11.md",
+      "startLine": 31,
+      "endLine": 62,
+      "source": "memory",
+      "snippet": "- Full Flutter fitness app (trainer/trainee GPS tracking) - 30 files written to `/data/.openclaw/workspace/TrainTogether/` - Pushed to GitHub: `github.com/ofergertz/TrainTogether` - GitHub token used (classic, repo scope): stored by Ofer, not saved here - Firebase project \"TrainTogether\" created by Ofer - Auth (Email/Password) ✅, Firestore ✅, Storage ❌ (requires paid plan) - google-services.json downloaded for Android - Flutter SDK install in progress on Ofer's Windows machine ## About Ofer - Lives in **גדרה** (not Tel Aviv) - Uses **Windows** + VS Code - OpenClaw runs in **Docker on Windows** (Linux container, `linux 6.12.74`) - Telegram: connected and working - WhatsApp: unstable, connect",
+      "recallCount": 9,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 6.0516024464489995,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-18T13:46:39.345Z",
+      "lastRecalledAt": "2026-05-29T12:31:17.275Z",
+      "queryHashes": [
+        "dd60b0525743",
+        "99e10053b2f0",
+        "c47f6ce19fbb",
+        "d60f479d6435",
+        "ddd0a5b56279",
+        "aa703b9658b3",
+        "a153055339de",
+        "5e758d668955",
+        "29db9b496685"
+      ],
+      "recallDays": [
+        "2026-04-18",
+        "2026-04-19",
+        "2026-05-29"
+      ],
+      "conceptTags": [
+        "trainer/trainee",
+        "openclaw/workspace/traintogether",
+        "email/password",
+        "google-services.json",
+        "6.12.74",
+        "full",
+        "flutter",
+        "fitness"
+      ]
+    },
+    "memory:memory/2026-04-11.md:1:36": {
+      "key": "memory:memory/2026-04-11.md:1:36",
+      "path": "memory/2026-04-11.md",
+      "startLine": 1,
+      "endLine": 36,
+      "source": "memory",
+      "snippet": "# Memory — 2026-04-11 ## Session Summary First real session with Ofer Gertz. Very productive day — went from zero to several working systems. ## What We Built ### 1. Daily Briefing Cron Job - Cron job: `daily-briefing`, runs 07:30 Asia/Jerusalem daily - Sends weather forecast for **גדרה** (not Tel Aviv!) to Telegram - Visible in OpenClaw Control UI ### 2. Wife's Weather Job - Cron job for wife: sends weather to **+972507470827** via WhatsApp at **06:30** Israel time - WhatsApp connection is unstable (keeps disconnecting with 401) — needs follow-up ### 3. LSports Interview Prep - Sub-agent researched LSports thoroughly - Report saved: `/data/.openclaw/workspace/lsports-interview-prep.md",
+      "recallCount": 10,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 7.420200067312287,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-04-18T14:37:16.541Z",
+      "lastRecalledAt": "2026-05-29T12:31:17.275Z",
+      "queryHashes": [
+        "99e10053b2f0",
+        "c47f6ce19fbb",
+        "d60f479d6435",
+        "e5324a737b39",
+        "289117f76582",
+        "ddd0a5b56279",
+        "aa703b9658b3",
+        "a153055339de",
+        "5e758d668955",
+        "29db9b496685"
+      ],
+      "recallDays": [
+        "2026-04-18",
+        "2026-04-19",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-05-29"
+      ],
+      "conceptTags": [
+        "daily-briefing",
+        "asia/jerusalem",
+        "follow-up",
+        "sub-agent",
+        "summary",
+        "first",
+        "real",
+        "ofer"
+      ]
+    }
+  }
+}
