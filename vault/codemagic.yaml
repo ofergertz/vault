@@ -1,0 +1,91 @@
+workflows:
+  ios-dev:
+    name: iOS Dev Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+    environment:
+      ios_signing:
+        distribution_type: ad_hoc
+        bundle_identifier: com.ofergertz.vault
+      vars:
+        BUNDLE_ID: com.ofergertz.vault
+        APP_NAME: vault
+      flutter: 3.22.0
+    scripts:
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Analyze
+        script: flutter analyze
+      - name: Test
+        script: flutter test
+      - name: Build IPA
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+      - name: Rename IPA with date
+        script: |
+          DATE=$(date +'%Y-%m-%d')
+          IPA_SRC=$(find build/ios/ipa -name "*.ipa" | head -1)
+          cp "$IPA_SRC" "${APP_NAME}-${DATE}.ipa"
+    artifacts:
+      - "vault-*.ipa"
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - ${{ secrets.NOTIFY_EMAIL }}
+        notify:
+          success: true
+          failure: true
+
+  ios-release:
+    name: iOS Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: 'v*.*.*'
+          include: true
+    environment:
+      ios_signing:
+        distribution_type: ad_hoc
+        bundle_identifier: com.ofergertz.vault
+      vars:
+        BUNDLE_ID: com.ofergertz.vault
+        APP_NAME: vault
+      flutter: 3.22.0
+    scripts:
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Test
+        script: flutter test
+      - name: Build Release IPA
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+      - name: Rename IPA with version
+        script: |
+          VERSION=$(echo $CM_TAG | sed 's/v//')
+          IPA_SRC=$(find build/ios/ipa -name "*.ipa" | head -1)
+          cp "$IPA_SRC" "${APP_NAME}-${VERSION}.ipa"
+    artifacts:
+      - "vault-*.ipa"
+    publishing:
+      email:
+        recipients:
+          - ${{ secrets.NOTIFY_EMAIL }}
+        notify:
+          success: true
+          failure: true
+      github_releases:
+        prerelease: false
+        artifact_patterns:
+          - "vault-*.ipa"
